@@ -9,8 +9,11 @@ $password = $_POST['password'];
 if(isset($name) && isset($password)){
 // catch the id of the user if exist in the database
 $id = $DB->login($name, $password);
-header("Location: ../pages/main.php?id_user=$id");
+
+if(isset($id)){
+    header("Location: ../pages/main.php?id_user=$id");
 }
 
+}
 
 ?>

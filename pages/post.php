@@ -1,3 +1,9 @@
+<?php
+
+$id = $_GET['id_user'];
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -16,7 +22,7 @@
 
 <div class="createPost">
 
-<form action="../logic/logic_post.php" method="post">
+<form action="../logic/logic_post.php?id_user=<?php echo $id ?>" method="post" enctype="multipart/form-data">
 
 <h2>Crear publicacion</h2>
 

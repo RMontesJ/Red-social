@@ -2,6 +2,14 @@
 
 $id = $_GET['id_user'];
 
+require_once "../DB/DB_Connection.php";
+$DB = new DB();
+
+if(isset($_POST['send'])){
+$value = $_POST['search'];
+}
+
+
 ?>
 
 <!DOCTYPE html>
@@ -18,6 +26,12 @@ $id = $_GET['id_user'];
 <div class="page">
 
 <?php include "../includes/nav.php" ?>
+
+<?php include "../includes/searchBar.php" ?>
+
+<div class="posts">
+    <?php $posts = $DB->showPosts($value, $id); ?>
+</div>
     
 </div>
 

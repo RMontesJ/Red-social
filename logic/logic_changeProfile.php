@@ -5,14 +5,17 @@ $id = $_GET['id_user'];
 require_once "../DB/DB_Connection.php";
 $DB = new DB();
 
-$title = $_POST['title'];
-$description = $_POST['description'];
-$fotoPredeterminada = '';
+$name = $_POST['name'];
+$password = $_POST['password'];
+$status = $_POST['status'];
+$extra_info = $_POST['extra-info'];
+$fotoPredeterminada = "../profile-pictures/user-photo-default.webp";
+$foto = $fotoPredeterminada;
 
 if(isset($_FILES['picture'])){
 
  // Ruta donde se guardará la foto (puedes ajustarla según tu estructura de archivos)
- $ruta_destino = '../posts-pictures/';
+ $ruta_destino = '../profile-pictures/';
 
  // Nombre del archivo original
  $nombre_archivo = $_FILES['picture']['name'];
@@ -25,10 +28,9 @@ if(isset($_FILES['picture'])){
 
 }
 
-// requires title and description to post anything
-if(isset($title) && isset($description)){
-
-$DB->createPost($title, $description, $foto, $id);
+// requires one field to update info
+if(isset($name) || isset($password) || isset($status) || isset($extra_info)){
+    $DB->editProfile($name, $status, $extra_info, $foto, $id);
 }
 
 

@@ -6,14 +6,15 @@ $DB = new DB();
 $name = $_POST['name'];
 $password = $_POST['password'];
 $status = $_POST['status'];
-$fotoPredeterminada = "../profile_pictures/user-photo-default.webp";
+$extra_info = $_POST['extra-info'];
+$fotoPredeterminada = "../profile-pictures/user-photo-default.webp";
 $foto = $fotoPredeterminada;
 
 // if picture is set
 if(isset($_FILES['picture'])){
 
     // Ruta donde se guardará la foto (puedes ajustarla según tu estructura de archivos)
-    $ruta_destino = '../profile_pictures/';
+    $ruta_destino = '../profile-pictures/';
    
     // Nombre del archivo original
     $nombre_archivo = $_FILES['picture']['name'];
@@ -27,9 +28,9 @@ if(isset($_FILES['picture'])){
     
    }
 
-   // if picture is not set
-   if(isset($name) && isset($password) && isset($status)){
-    $DB->createUser($name, $password, $status, $foto);
+   // only name and password is required
+   if(isset($name) && isset($password)){
+    $DB->createUser($name, $password, $status, $extra_info, $foto);
    }
 
 ?>

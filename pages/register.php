@@ -8,7 +8,7 @@
 </head>
 <body>
 
-<form action="../logic/logic_register.php" method="post">
+<form action="../logic/logic_register.php" method="post" enctype="multipart/form-data">
 
 <h2>Registrarse</h2>
 
@@ -19,6 +19,8 @@
 <input type="password" name="password" id="contrasena" placeholder="Contraseña">
 <label for="estado">Estado</label>
 <input type="text" name="status" id="estado" placeholder="Estado">
+<label for="estado">Informacion adicional</label>
+<input type="text" name="extra-info" id="extra-info" placeholder="Informacion adicional">
 <label for="picture">Foto</label>
 <input type="file" name="picture" id="picture" placeholder="Foto">
 
