@@ -1,5 +1,7 @@
 <?php 
 
+error_reporting(0);
+
 $id = $_GET['id_user'];
 
 require_once "../DB/DB_Connection.php";

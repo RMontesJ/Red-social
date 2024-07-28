@@ -10,6 +10,13 @@
     justify-content: center;
 }
 
+.posts{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
 .tarjeta{
     width: 400px;
     display: flex;
