@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Index</title>
-    <link rel="stylesheet" href="../css/index.css">
+    <link rel="stylesheet" href="../css/index.css?v=<?php echo time(); ?>">
 </head>
 <body>
 
@@ -17,8 +17,8 @@
             <a href="#">Terminos y condiciones</a>
         </div>
         <div class="botones">
-            <a href="login.php"><button class="btn">Iniciar sesion</button></a>
-            <a href="register.php"><button class="btn">Registrarse</button></a>
+            <a href="../pages/login.php"><button class="btn">Iniciar sesion</button></a>
+            <a href="../pages/register.php"><button class="btn">Registrarse</button></a>
     </div>
         </div>
     </div>

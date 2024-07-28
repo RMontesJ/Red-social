@@ -10,10 +10,16 @@ $id = $_GET['id_user'];
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Main page</title>
+    <link rel="stylesheet" href="../css/nav.css?v=<?php echo time(); ?>">
+    <link rel="stylesheet" href="../css/main.css?v=<?php echo time(); ?>">
 </head>
 <body>
 
-<h1>ss</h1>
+<div class="page">
+
+<?php include "../includes/nav.php" ?>
     
+</div>
+
 </body>
 </html>

@@ -22,7 +22,7 @@ class DB
 
     public function login($user, $passwd)
     {
-        $query = mysqli_query($this->conexion, "SELECT * FROM usuario where nombre = $user and contrasena = $passwd");
+        $query = mysqli_query($this->conexion, "SELECT * FROM usuario where nombre = '$user' and contrasena = '$passwd'");
         $num = mysqli_num_rows($query);
         if ($num == 1) {
             $row = mysqli_fetch_assoc($query);
@@ -33,8 +33,8 @@ class DB
         }
     }
 
-    public function createUser($user,$password, $status){
-        $insertar = "INSERT INTO usuario (nombre, contrasena, estado) VALUES ('$user', '$password', '$status')";
+    public function createUser($user,$password, $status, $foto){
+        $insertar = "INSERT INTO usuario (nombre, contrasena, estado, foto) VALUES ('$user', '$password', '$status', '$foto')";
 
         if (mysqli_query($this->conexion, $insertar)) {
             header("Location: ../pages/login.php");
