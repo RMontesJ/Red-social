@@ -21,13 +21,14 @@ class DB
     }
 
     public function showPosts($search, $my_id){
-        $consulta = $this->conexion->query("SELECT * FROM publicacion WHERE id LIKE '%$search%' OR titulo LIKE '%$search%' OR contenido LIKE '%$search%'");
+        $consulta = $this->conexion->query("SELECT * FROM publicacion WHERE id LIKE '%$search%' OR titulo LIKE '%$search%' OR descripcion LIKE '%$search%'");
 
         while ($row = $consulta->fetch_array(MYSQLI_ASSOC)) {
             echo "<div class= 'tarjeta'>";
-            echo "<img src='../posts-pictures/" . $row['archivo'] . "' alt='Post picture' style='width:100%;height:300px;'><br>";
+            echo "<a href='../pages/watch.php?id_user_publisher=" . $row['usuario_id'] . "&id_user=$my_id&id_post=" . $row['id'] . "'><img src='../posts-pictures/" . $row['archivo'] . "' alt='Post picture' style='width:100%;height:300px;'></a><br>";
+            echo "Creador: " . $row['usuario_nombre'] . "<br>";
             echo "Titulo: " . $row['titulo'] . "<br>";
-            echo "Contenido: " . $row['contenido'] . "<br>";
+            echo "Contenido: " . $row['descripcion'] . "<br>";
             echo "<a href='../pages/viewProfile.php?id_user_publisher=" . $row['usuario_id'] . "&id_user=$my_id'><button>Ver perfil</button></a><br>";
             echo "</div>";
         }
@@ -65,6 +66,46 @@ class DB
             exit();
         } else {
             echo "Error: " .mysqli_error($this->conexion);
+        }
+    }
+
+    public function catchPostID($id_post, $id_publisher){
+        $query = mysqli_query($this->conexion, "SELECT * FROM publicacion where id = '$id_post' and usuario_id = '$id_publisher'");
+        $num = mysqli_num_rows($query);
+        if ($num == 1) {
+            $row = mysqli_fetch_assoc($query);
+            $video = $row['id'];
+            return $video;
+        }
+    }
+
+    public function preparedPost($id_post, $id_publisher){
+        $query = mysqli_query($this->conexion, "SELECT * FROM publicacion where id = '$id_post' and usuario_id = '$id_publisher'");
+        $num = mysqli_num_rows($query);
+        if ($num == 1) {
+            $row = mysqli_fetch_assoc($query);
+            $video = $row['archivo'];
+            return $video;
+        }
+    }
+
+    public function catchTitle($id){
+        $query = mysqli_query($this->conexion, "SELECT * FROM publicacion where id = '$id'");
+        $num = mysqli_num_rows($query);
+        if ($num == 1) {
+            $row = mysqli_fetch_assoc($query);
+            $titulo = $row['titulo'];
+            return $titulo;
+        }
+    }
+
+    public function catchContent($id){
+        $query = mysqli_query($this->conexion, "SELECT * FROM publicacion where id = '$id'");
+        $num = mysqli_num_rows($query);
+        if ($num == 1) {
+            $row = mysqli_fetch_assoc($query);
+            $contenido = $row['descripcion'];
+            return $contenido;
         }
     }
 
@@ -114,8 +155,8 @@ class DB
         }
     }
 
-    public function createPost($title, $description, $archivo, $id){
-        $insertar = "INSERT INTO publicacion (titulo, contenido, archivo, usuario_id) VALUES ('$title', '$description', '$archivo', '$id')";
+    public function createPost($title, $description, $archivo, $id, $name_publisher){
+        $insertar = "INSERT INTO publicacion (titulo, descripcion, archivo, usuario_id, usuario_nombre) VALUES ('$title', '$description', '$archivo', '$id', '$name_publisher')";
 
         if (mysqli_query($this->conexion, $insertar)) {
             header("Location: ../pages/main.php?id_user=$id");

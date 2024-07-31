@@ -33,9 +33,13 @@ USE `red_social`;
 CREATE TABLE IF NOT EXISTS `publicacion` (
   `id` int(11) NOT NULL,
   `titulo` varchar(40) NOT NULL,
-  `contenido` varchar(50) NOT NULL,
+  `descripcion` varchar(50) NOT NULL,
   `archivo` varchar(300) NOT NULL,
-  `usuario_id` int(11) NOT NULL
+  `usuario_id` int(11) NOT NULL,
+  `usuario_nombre` varchar(30) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `usuario_id` (`usuario_id`),
+  KEY `usuario_nombre` (`usuario_nombre`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -50,25 +54,10 @@ CREATE TABLE IF NOT EXISTS `usuario` (
   `contrasena` varchar(30) NOT NULL,
   `estado` varchar(80) NOT NULL,
   `info_adicional` varchar(150) NOT NULL,
-  `foto` varchar(300) NOT NULL
+  `foto` varchar(300) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `nombre` (`nombre`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Índices para tablas volcadas
---
-
---
--- Indices de la tabla `publicacion`
---
-ALTER TABLE `publicacion`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `usuario_id` (`usuario_id`);
-
---
--- Indices de la tabla `usuario`
---
-ALTER TABLE `usuario`
-  ADD PRIMARY KEY (`id`);
 
 --
 -- AUTO_INCREMENT de las tablas volcadas
@@ -94,7 +83,9 @@ ALTER TABLE `usuario`
 -- Filtros para la tabla `publicacion`
 --
 ALTER TABLE `publicacion`
-  ADD CONSTRAINT `fk_publicacion_usuario` FOREIGN KEY (`usuario_id`) REFERENCES `usuario` (`id`);
+  ADD CONSTRAINT `fk_publicacion_usuario_id` FOREIGN KEY (`usuario_id`) REFERENCES `usuario` (`id`),
+  ADD CONSTRAINT `fk_publicacion_usuario_nombre` FOREIGN KEY (`usuario_nombre`) REFERENCES `usuario` (`nombre`) ON DELETE CASCADE ON UPDATE CASCADE;
+
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
