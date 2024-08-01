@@ -35,6 +35,10 @@ else if ($_FILES['picture']['name'] == ""){
     $DB->createPost($title, $description, $foto, $id);
 }
 
+else{
+    header("Location: ../pages/post.php?id_user=$id");
+}
+
 }
 
 ?>

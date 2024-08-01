@@ -21,16 +21,17 @@ if (isset($_FILES['picture'])) {
         // Aquí puedes guardar $nombre_archivo en la base de datos o realizar otras operaciones
         $foto = $nombre_archivo;
         $DB->editPicture($foto, $id);
-    }
-
-    // si no has puesto foto, te pone la foto predeterminada
-   
+    }   
     
     }
 
     else if ($_FILES['picture']['name'] == ""){
         $fotoPredeterminada = '../profile-pictures/user-photo-default.webp';
         $DB->editPicture($fotoPredeterminada, $id);
+    }
+
+    else{
+        header("Location: ../pages/myProfile.php?id_user=$id");
     }
 }
 
