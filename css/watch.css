@@ -1,16 +1,49 @@
 .page{
     display: flex;
     flex-direction: column;
+    flex-wrap: wrap;
 }
 
 .post-box{
     display: flex;
     flex-direction: column;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.post-info{
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
     align-items: center;
 }
 
 .publisher-info{
     display: flex;
     flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
     align-items: center;
+}
+
+.title-more-posts{
+    text-align: center;
+    margin-top: 100px;
+}
+
+.more-posts{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    text-align: center;
+    justify-content: space-between;
+}
+
+.tarjeta{
+    width: 400px;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-items: center;
+    border: 1px black solid;
 }

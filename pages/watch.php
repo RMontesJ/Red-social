@@ -16,13 +16,13 @@ $id_post = $DB->catchPostID($id_post, $id_publisher);
 //catches the post
 $prepared_post = $DB->preparedPost($id_post, $id_publisher);
 
+// catches the title of the post
 $title = $DB->catchTitle($id_post);
 
 $description = $DB->catchContent($id_post);
 
 // catches the publisher's picture
 $picture = $DB->catchPicture($id_publisher);
-
 
 ?>
 
@@ -45,6 +45,8 @@ $picture = $DB->catchPicture($id_publisher);
 <!-- The playing video -->
 <img src="../posts-pictures/<?php echo $prepared_post ?>" width="500px" height="400px">
 
+</div>
+
 <div class="post-info">
 <!-- Title of the video -->
 <h1><?php echo $title; ?></h1>
@@ -57,6 +59,14 @@ $picture = $DB->catchPicture($id_publisher);
     </div>
 <h1><?php echo $name_publisher ?></h1>
 </div>
+
+<div class="title-more-posts">
+    <h1>Mas contenido de <?php echo $name_publisher ?></h1>
+</div>
+
+<div class="more-posts">
+
+<?php echo $DB->showMorePosts($id, $id_publisher); ?>
 
 </div>
 
