@@ -31,7 +31,7 @@ if (isset($_FILES['picture'])) {
     }
 
     else{
-        header("Location: ../pages/myProfile.php?id_user=$id");
+        header("Location: ../pages/changePicture.php?id_user=$id");
     }
 }
 
