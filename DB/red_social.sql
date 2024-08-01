@@ -32,8 +32,8 @@ USE `red_social`;
 
 CREATE TABLE IF NOT EXISTS `publicacion` (
   `id` int(11) NOT NULL,
-  `titulo` varchar(40) NOT NULL,
-  `descripcion` varchar(50) NOT NULL,
+  `titulo` varchar(50) NOT NULL,
+  `descripcion` varchar(150) NOT NULL,
   `archivo` varchar(300) NOT NULL,
   `usuario_id` int(11) NOT NULL,
   `usuario_nombre` varchar(30) NOT NULL,

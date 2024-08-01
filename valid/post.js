@@ -18,10 +18,10 @@ let corregirDescription = document.getElementById('corregirDescription');
 
 let validar = true;
 
-if(title.value.trim() === "" || !/^[a-zA-Z0-9\s.,!¡?¿@#$%^&*()\-_=+\[\]{}|\\:;"'<>,~`]{1,45}$/.test(title.value)){
+if(title.value.trim() === "" || !/^[a-zA-Z0-9\s.,!¡?¿@#$%^&*()\-_=+\[\]{}|\\:;"'<>,~`]{1,50}$/.test(title.value)){
     title = document.getElementById('title').style.border = "1px red solid";
     corregirTitle.style.color = 'red';
-    corregirTitle.innerHTML = "El titulo tiene que tener entre 1 y 25 caracteres";
+    corregirTitle.innerHTML = "El titulo tiene que tener entre 1 y 50 caracteres";
     validar = false;
 }
 else{
@@ -30,7 +30,7 @@ else{
     validar = true;
 }
 
-if(description.value.trim() === "" || !/^[a-zA-Z0-9\s.,!¡?¿@#$%^&*()\-_=+\[\]{}|\\:;"'<>,~`]{1,100}$/.test(description.value)){
+if(description.value.trim() === "" || !/^[a-zA-Z0-9\s.,!¡?¿@#$%^&*()\-_=+\[\]{}|\\:;"'<>,~`]{1,150}$/.test(description.value)){
     description = document.getElementById('description').style.border = "1px red solid";
     corregirDescription.style.color = 'red';
     corregirDescription.innerHTML = "La descripción tiene que tener entre 1 y 100 caracteres";
