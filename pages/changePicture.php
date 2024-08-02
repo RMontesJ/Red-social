@@ -28,7 +28,7 @@ $id = $_GET['id_user'];
 
 <div class="input-group">
 
-<label for="foto">Foto</label>
+<label for="foto">Foto (extensión .png .jpeg .jpg .webp)</label>
 <input type="file" name="picture" id="picture" placeholder="Foto">
 <div class="form-txt">
 

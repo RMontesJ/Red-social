@@ -33,7 +33,7 @@ $id = $_GET['id_user'];
 <label for="descripción">Descripción</label>
 <input type="text" name="description" id="description" placeholder="Descripción">
 <p id="corregirDescription"></p>
-<label for="foto">Foto</label>
+<label for="foto">Foto (extensión .png .jpeg .jpg .webp)</label>
 <input type="file" name="picture" id="picture" placeholder="Foto">
 <div class="form-txt">
 
