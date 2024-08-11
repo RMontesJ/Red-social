@@ -60,6 +60,18 @@ class DB
         }
     }
 
+    public function showMyPosts($my_id){
+        $consulta = $this->conexion->query("SELECT * FROM publicacion WHERE usuario_id = '$my_id'");
+
+        while ($row = $consulta->fetch_array(MYSQLI_ASSOC)) {
+            echo "<div class= 'tarjeta'>";
+            echo "<a href='../pages/watch.php?id_user_publisher=" . $row['usuario_id'] . "&id_user=$my_id&id_post=" . $row['id'] . "'><img src='../posts-pictures/" . $row['archivo'] . "' alt='Post picture' style='width:100%;height:300px;'></a><br>";
+            echo "Titulo: " . $row['titulo'] . "<br>";
+            echo "Descripción: " . $row['descripcion'] . "<br>";
+            echo "</div>";
+        }
+    }
+
     public function login($user, $passwd)
     {
         $query = mysqli_query($this->conexion, "SELECT * FROM usuario where nombre = '$user' and contrasena = '$passwd'");
