@@ -34,6 +34,19 @@ class DB
         }
     }
 
+    public function showProfiles($search, $my_id){
+        $consulta = $this->conexion->query("SELECT * FROM usuario WHERE nombre LIKE '%$search%'");
+
+        while ($row = $consulta->fetch_array(MYSQLI_ASSOC)) {
+            echo "<div class= 'tarjeta'>";
+            echo "<a href='../pages/viewProfile.php?id_user=$my_id&id_user_publisher=" . $row['id'] . "'><img src='../profile-pictures/" . $row['foto'] . "' alt='Profile picture' style='width:100%;height:300px;'></a><br>";
+            echo "Nombre: " . $row['nombre'] . "<br>";
+            echo "Estado: " . $row['estado'] . "<br>";
+            echo "Informacion adicional: " . $row['info_adicional'] . "<br>";
+            echo "</div>";
+        }
+    }
+
     public function showMorePosts($my_id, $id_publisher){
         $consulta = $this->conexion->query("SELECT * FROM publicacion WHERE usuario_id = '$id_publisher'");
 
