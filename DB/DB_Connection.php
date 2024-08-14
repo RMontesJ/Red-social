@@ -20,20 +20,6 @@ class DB
 
     }
 
-    public function showPosts($search, $my_id){
-        $consulta = $this->conexion->query("SELECT * FROM publicacion WHERE id LIKE '%$search%' OR titulo LIKE '%$search%' OR descripcion LIKE '%$search%' OR usuario_nombre LIKE '%$search%'");
-
-        while ($row = $consulta->fetch_array(MYSQLI_ASSOC)) {
-            echo "<div class= 'tarjeta'>";
-            echo "<a href='../pages/watch.php?id_user_publisher=" . $row['usuario_id'] . "&id_user=$my_id&id_post=" . $row['id'] . "'><img src='../posts-pictures/" . $row['archivo'] . "' alt='Post picture' style='width:100%;height:300px;'></a><br>";
-            echo "Creador: " . $row['usuario_nombre'] . "<br>";
-            echo "Titulo: " . $row['titulo'] . "<br>";
-            echo "Descripción: " . $row['descripcion'] . "<br>";
-            echo "<a href='../pages/viewProfile.php?id_user_publisher=" . $row['usuario_id'] . "&id_user=$my_id'><button>Ver perfil</button></a><br>";
-            echo "</div>";
-        }
-    }
-
     public function showProfiles($search, $my_id){
         $consulta = $this->conexion->query("SELECT * FROM usuario WHERE nombre LIKE '%$search%'");
 
@@ -47,14 +33,27 @@ class DB
         }
     }
 
+    public function showPosts($search, $my_id){
+        $consulta = $this->conexion->query("SELECT * FROM publicacion WHERE id LIKE '%$search%' OR titulo LIKE '%$search%' OR descripcion LIKE '%$search%' OR usuario_nombre LIKE '%$search%'");
+
+        while ($row = $consulta->fetch_array(MYSQLI_ASSOC)) {
+            echo "<div class= 'tarjeta'>";
+            echo "<a href='../pages/watch.php?id_user_publisher=" . $row['usuario_id'] . "&id_user=$my_id&id_post=" . $row['id'] . "'><img src='../posts-pictures/" . $row['archivo'] . "' alt='Post picture' style='width:100%;height:300px;'></a><br>";
+            echo "<h1>" . $row['titulo'] . "</h1>" . "<br>";
+            echo "Creador: <a href='../pages/viewProfile.php?id_user=" . $my_id . "&id_user_publisher=" . $row['usuario_id'] . "'>" . $row['usuario_nombre'] . "</a><br>";
+            echo "Descripción: " . $row['descripcion'] . "<br>";
+            echo "</div>";
+        }
+    }
+
     public function showMorePosts($my_id, $id_publisher){
         $consulta = $this->conexion->query("SELECT * FROM publicacion WHERE usuario_id = '$id_publisher'");
 
         while ($row = $consulta->fetch_array(MYSQLI_ASSOC)) {
             echo "<div class= 'tarjeta'>";
             echo "<a href='../pages/watch.php?id_user_publisher=" . $row['usuario_id'] . "&id_user=$my_id&id_post=" . $row['id'] . "'><img src='../posts-pictures/" . $row['archivo'] . "' alt='Post picture' style='width:100%;height:300px;'></a><br>";
-            echo "Creador: " . $row['usuario_nombre'] . "<br>";
-            echo "Titulo: " . $row['titulo'] . "<br>";
+            echo "<h1>" . $row['titulo'] . "</h1>" . "<br>";
+            echo "Creador: <a href='../pages/viewProfile.php?id_user=" . $my_id . "&id_user_publisher=" . $row['usuario_id'] . "'>" . $row['usuario_nombre'] . "</a><br>";
             echo "Descripción: " . $row['descripcion'] . "<br>";
             echo "</div>";
         }
@@ -66,7 +65,7 @@ class DB
         while ($row = $consulta->fetch_array(MYSQLI_ASSOC)) {
             echo "<div class= 'tarjeta'>";
             echo "<a href='../pages/watch.php?id_user_publisher=" . $row['usuario_id'] . "&id_user=$my_id&id_post=" . $row['id'] . "'><img src='../posts-pictures/" . $row['archivo'] . "' alt='Post picture' style='width:100%;height:300px;'></a><br>";
-            echo "Titulo: " . $row['titulo'] . "<br>";
+            echo "<h1>" . $row['titulo'] . "</h1>" . "<br>";
             echo "Descripción: " . $row['descripcion'] . "<br>";
             echo "<div class= 'botones'>";
             echo "<a href='../logic/logic_delete_post.php?id_user=$my_id&id_post=" . $row['id'] . "'><img src='../icons/trashCan_Icon.svg' alt='Trash icon'></a>";
