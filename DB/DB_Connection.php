@@ -68,6 +68,9 @@ class DB
             echo "<a href='../pages/watch.php?id_user_publisher=" . $row['usuario_id'] . "&id_user=$my_id&id_post=" . $row['id'] . "'><img src='../posts-pictures/" . $row['archivo'] . "' alt='Post picture' style='width:100%;height:300px;'></a><br>";
             echo "Titulo: " . $row['titulo'] . "<br>";
             echo "Descripción: " . $row['descripcion'] . "<br>";
+            echo "<div class= 'botones'>";
+            echo "<a href='../logic/logic_delete_post.php?id_user=$my_id&id_post=" . $row['id'] . "'><img src='../icons/trashCan_Icon.svg' alt='Trash icon'></a>";
+            echo "</div>";
             echo "</div>";
         }
     }
@@ -147,11 +150,6 @@ class DB
         }
     }
 
-    public function deletePosts($id){
-        $borrar = "DELETE FROM publicacion WHERE id= '$id'";
-
-        mysqli_query($this->conexion, $borrar);
-    }
 // catches your own name
     public function catchName($id){
         $query = mysqli_query($this->conexion, "SELECT * FROM usuario where id = '$id'");
@@ -193,6 +191,18 @@ class DB
         }
     }
 
+    public function deletePost($id_post, $id_user){
+        $delete = "DELETE FROM publicacion WHERE id= '$id_post'";
+
+        if (mysqli_query($this->conexion, $delete)) {
+            header("Location: ../pages/myProfile.php?id_user=$id_user");
+            exit();
+        } else {
+            echo "Error: " .mysqli_error($this->conexion);
+        }
+    }
+
+
     public function createPost($title, $description, $archivo, $id, $name_publisher){
         $insertar = "INSERT INTO publicacion (titulo, descripcion, archivo, usuario_id, usuario_nombre) VALUES ('$title', '$description', '$archivo', '$id', '$name_publisher')";
 
@@ -203,6 +213,7 @@ class DB
             echo "Error: " .mysqli_error($this->conexion);
         }
     }
+
 
     public function editProfile($name, $status, $info_extra, $id){
         $update = "UPDATE usuario SET nombre='$name', estado='$status', info_adicional='$info_extra' WHERE id = '$id'";
