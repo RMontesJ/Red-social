@@ -5,6 +5,7 @@ $id = $_GET['id_user'];
 require_once "../DB/DB_Connection.php";
 $DB = new DB();
 $name_publisher = $DB->catchName($id);
+$userPicture = $DB->catchPicture($id);
 
 $title = $_POST['title'];
 $description = $_POST['description'];
@@ -24,7 +25,7 @@ if(isset($_FILES['picture'])){
 if (move_uploaded_file($_FILES['picture']['tmp_name'], $ruta_destino . $nombre_archivo)) {
     // Aquí puedes guardar $nombre_archivo en la base de datos o realizar otras operaciones
     $foto = $nombre_archivo;
-    $DB->createPost($title, $description, $foto, $id, $name_publisher);
+    $DB->createPost($title, $description, $foto, $id, $name_publisher, $userPicture);
 }
 
 }
@@ -32,7 +33,7 @@ if (move_uploaded_file($_FILES['picture']['tmp_name'], $ruta_destino . $nombre_a
 // si no has puesto foto, te pone la foto predeterminada
 else if ($_FILES['picture']['name'] == ""){
     $foto = $fotoPredeterminada = '../posts-pictures/default-picture.png';
-    $DB->createPost($title, $description, $foto, $id, $name_publisher);
+    $DB->createPost($title, $description, $foto, $id, $name_publisher, $userPicture);
 }
 
 else{

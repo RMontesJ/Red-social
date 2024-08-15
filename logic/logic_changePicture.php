@@ -6,6 +6,7 @@ require_once "../DB/DB_Connection.php";
 $DB = new DB();
 
 $extension = $_FILES['picture']['type'];
+$userPicture = $DB->catchPicture($id);
 
 if (isset($_FILES['picture'])) {
 
@@ -21,6 +22,7 @@ if (isset($_FILES['picture'])) {
         // Aquí puedes guardar $nombre_archivo en la base de datos o realizar otras operaciones
         $foto = $nombre_archivo;
         $DB->editPicture($foto, $id);
+        $DB->updateUserProfilePicture($id, $foto);
     }   
     
     }
@@ -28,6 +30,7 @@ if (isset($_FILES['picture'])) {
     else if ($_FILES['picture']['name'] == ""){
         $fotoPredeterminada = '../profile-pictures/user-photo-default.webp';
         $DB->editPicture($fotoPredeterminada, $id);
+        $DB->updateUserProfilePicture($id, $foto);
     }
 
     else{

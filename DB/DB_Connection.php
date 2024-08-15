@@ -40,7 +40,11 @@ class DB
             echo "<div class= 'tarjeta'>";
             echo "<a href='../pages/watch.php?id_user_publisher=" . $row['usuario_id'] . "&id_user=$my_id&id_post=" . $row['id'] . "'><img src='../posts-pictures/" . $row['archivo'] . "' alt='Post picture' style='width:100%;height:300px;'></a><br>";
             echo "<h1>" . $row['titulo'] . "</h1>" . "<br>";
-            echo "Creador: <a href='../pages/viewProfile.php?id_user=" . $my_id . "&id_user_publisher=" . $row['usuario_id'] . "'>" . $row['usuario_nombre'] . "</a><br>";
+            echo "<div class='publisher'>";
+            // foto del usuario que publica
+            echo "<a href='../pages/viewProfile.php?id_user=" . $my_id . "&id_user_publisher=" . $row['usuario_id'] . "'>" . "<img src='../profile-pictures/".$row['usuario_foto']. "' alt='User picture' style='width:50px;height:50px;'></a><br>";
+            echo "<a href='../pages/viewProfile.php?id_user=" . $my_id . "&id_user_publisher=" . $row['usuario_id'] . "'>" . $row['usuario_nombre'] . "</a><br>";
+            echo "</div>";
             echo "Descripción: " . $row['descripcion'] . "<br>";
             echo "</div>";
         }
@@ -53,7 +57,11 @@ class DB
             echo "<div class= 'tarjeta'>";
             echo "<a href='../pages/watch.php?id_user_publisher=" . $row['usuario_id'] . "&id_user=$my_id&id_post=" . $row['id'] . "'><img src='../posts-pictures/" . $row['archivo'] . "' alt='Post picture' style='width:100%;height:300px;'></a><br>";
             echo "<h1>" . $row['titulo'] . "</h1>" . "<br>";
-            echo "Creador: <a href='../pages/viewProfile.php?id_user=" . $my_id . "&id_user_publisher=" . $row['usuario_id'] . "'>" . $row['usuario_nombre'] . "</a><br>";
+            echo "<div class='publisher'>";
+            // foto del usuario que publica
+            echo "<a href='../pages/viewProfile.php?id_user=" . $my_id . "&id_user_publisher=" . $row['usuario_id'] . "'>" . "<img src='../profile-pictures/".$row['usuario_foto']. "' alt='User picture' style='width:50px;height:50px;'></a><br>";
+            echo "<a href='../pages/viewProfile.php?id_user=" . $my_id . "&id_user_publisher=" . $row['usuario_id'] . "'>" . $row['usuario_nombre'] . "</a><br>";
+            echo "</div>";
             echo "Descripción: " . $row['descripcion'] . "<br>";
             echo "</div>";
         }
@@ -66,10 +74,12 @@ class DB
             echo "<div class= 'tarjeta'>";
             echo "<a href='../pages/watch.php?id_user_publisher=" . $row['usuario_id'] . "&id_user=$my_id&id_post=" . $row['id'] . "'><img src='../posts-pictures/" . $row['archivo'] . "' alt='Post picture' style='width:100%;height:300px;'></a><br>";
             echo "<h1>" . $row['titulo'] . "</h1>" . "<br>";
-            echo "Descripción: " . $row['descripcion'] . "<br>";
-            echo "<div class= 'botones'>";
-            echo "<a href='../logic/logic_delete_post.php?id_user=$my_id&id_post=" . $row['id'] . "'><img src='../icons/trashCan_Icon.svg' alt='Trash icon'></a>";
+            echo "<div class='publisher'>";
+            // foto del usuario que publica
+            echo "<a href='../pages/viewProfile.php?id_user=" . $my_id . "&id_user_publisher=" . $row['usuario_id'] . "'>" . "<img src='../profile-pictures/".$row['usuario_foto']. "' alt='User picture' style='width:50px;height:50px;'></a><br>";
+            echo "<a href='../pages/viewProfile.php?id_user=" . $my_id . "&id_user_publisher=" . $row['usuario_id'] . "'>" . $row['usuario_nombre'] . "</a><br>";
             echo "</div>";
+            echo "Descripción: " . $row['descripcion'] . "<br>";
             echo "</div>";
         }
     }
@@ -202,8 +212,8 @@ class DB
     }
 
 
-    public function createPost($title, $description, $archivo, $id, $name_publisher){
-        $insertar = "INSERT INTO publicacion (titulo, descripcion, archivo, usuario_id, usuario_nombre) VALUES ('$title', '$description', '$archivo', '$id', '$name_publisher')";
+    public function createPost($title, $description, $archivo, $id, $name_publisher, $userPicture){
+        $insertar = "INSERT INTO publicacion (titulo, descripcion, archivo, usuario_id, usuario_nombre, usuario_foto) VALUES ('$title', '$description', '$archivo', '$id', '$name_publisher', '$userPicture')";
 
         if (mysqli_query($this->conexion, $insertar)) {
             header("Location: ../pages/main.php?id_user=$id");
@@ -226,6 +236,16 @@ class DB
 
     public function editPicture($foto, $id){
         $update = "UPDATE usuario SET foto='$foto' WHERE id = '$id'";
+        if (mysqli_query($this->conexion, $update)) {
+            header("Location: ../pages/myProfile.php?id_user=$id");
+            exit();
+        } else {
+            echo "Error: " .mysqli_error($this->conexion);
+        }
+    }
+
+    public function updateUserProfilePicture($id, $foto){
+        $update = "UPDATE publicacion SET usuario_foto='$foto' WHERE usuario_id = '$id'";
         if (mysqli_query($this->conexion, $update)) {
             header("Location: ../pages/myProfile.php?id_user=$id");
             exit();
